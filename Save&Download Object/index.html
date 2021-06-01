@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Save/Download Object of Json & JavaScript</title>
+	<style type="text/css">
+		*{
+			border-radius: 15px;
+			text-decoration: none;
+			border: none;
+			padding: 8px;
+			outline: none;
+		}
+		div{
+			width: 50%;
+			height: 50%;
+			position: absolute;
+			top: -20px;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba(200,200, 200, 0.5);
+			margin:auto;
+			padding: 30px;
+			border-radius: 15px;
+			box-shadow: 0px 0px 15px -5px #ccc;
+		}
+		input[name="link"],textarea{
+			
+			margin: 5px -8px;
+			width: 100%;
+			float: left;
+		}
+		/*textarea{
+			margin: 0px; 
+			width: 100%;
+			float: left;
+		}*/
+		button{
+			float: left;
+			background-color: #4CAF50; /* Green */
+		    border: none;
+		    color: white;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 120%;
+		    margin: 5px;
+		}
+	</style>
+</head>
+<script type="text/javascript">
+	(function(console){
+	    console.save = function(data, filename){
+	        if(!data) {
+	            console.error('Console.save: No data')
+	            title.innerText="No data!";
+	            return;
+	        }
+	        if(!filename) filename = 'console.json'
+	        if(typeof data === "object"){
+	            data = JSON.stringify(data, undefined, 4)
+	        }
+	        var blob = new Blob([data], {type: 'text/json'}),
+	            e = document.createEvent('MouseEvents'),
+	            a = document.createElement('a')
+	        a.download = filename
+	        a.href = window.URL.createObjectURL(blob)
+	        a.dataset.downloadurl =  ['text/json', a.download, a.href].join(':')
+	        e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+	        a.dispatchEvent(e)
+	    }
+	})(console)
+</script>
+<body>
+	<div>
+		<input type="text" name="link" placeholder="请输入Javascript链接，以 .js 结尾"><br>
+		<textarea rows="16" placeholder="请输入Javascript代码..."></textarea><br>
+		<input type="text" name="" placeholder="请输入需要下载的对象..."><br>
+		<button onclick="save()">Save/Download</button>
+		<span></span>
+	</div>
+</body>
+<script type="text/javascript">
+	let link = document.getElementsByTagName('input')[0];
+	let code = document.getElementsByTagName('textarea')[0];
+	let name = document.getElementsByTagName('input')[1];
+	let title = document.getElementsByTagName('span')[0]
+	function save(){
+		if(link.value.length){
+			let js = document.createElement('script');
+			let body = document.getElementsByTagName('body')[0];
+			js.src = link.value;
+			body.appendChild(js);
+			link.value='';
+		}
+		if(code.value.length){
+			let js = document.createElement('script');
+			let body = document.getElementsByTagName('body')[0];
+			js.type="text/javascript";
+			js.innerHTML= code.value;
+			body.appendChild(js);
+			// code.value='';
+		}
+		if (name.value.length) {
+			console.log(name.value);
+			console.save(eval(name.value));
+			title.innerText="正在下载..."
+		}else{
+			console.log("请输入需要下载的对象");
+			title.innerText = "请输入需要下载的对象..";
+		}
+		
+		// console.log(code.value);
+	}
+</script>
+</html>

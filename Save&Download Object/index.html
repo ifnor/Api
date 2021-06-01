@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Save/Download Object of Json & JavaScript</title>
+	<meta name="viewport" content="width=device-width,initial-scale=0.5,maximum-scale=1,minimum-scale=1,user-scalable=no">
 	<style type="text/css">
 		*{
 			border-radius: 15px;
@@ -11,17 +12,13 @@
 			padding: 8px;
 			outline: none;
 		}
+		
 		div{
-			width: 50%;
-			height: 50%;
-			position: absolute;
-			top: -20px;
-			left: 0;
-			right: 0;
-			bottom: 0;
+			/*width: 50%;*/
+			/*position: absolute;*/
 			background: rgba(200,200, 200, 0.5);
-			margin:auto;
-			padding: 30px;
+			margin:auto auto;
+			padding:  20px 30px 80px 30px;
 			border-radius: 15px;
 			box-shadow: 0px 0px 15px -5px #ccc;
 		}
@@ -46,6 +43,21 @@
 		    display: inline-block;
 		    font-size: 120%;
 		    margin: 5px;
+		}
+		@media screen and (min-width: 600px) {
+			div{
+				width: 50%;
+				background: rgba(200,200, 200, 0.5);
+				margin:auto auto;
+				padding: 20px 30px 60px 30px;
+				border-radius: 15px;
+				box-shadow: 0px 0px 15px -5px #ccc;
+			}
+		}
+		span{
+			/*display: flex;*/
+			/*position: absolute;*/
+			float: right;
 		}
 	</style>
 </head>
@@ -78,7 +90,7 @@
 		<textarea rows="16" placeholder="请输入Javascript代码..."></textarea><br>
 		<input type="text" name="" placeholder="请输入需要下载的对象..."><br>
 		<button onclick="save()">Save/Download</button>
-		<span></span>
+		<span>请按照提示操作！</span>
 	</div>
 </body>
 <script type="text/javascript">
